@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Banking System</title>
+    <link rel="stylesheet" href="/static">
+</head>
+<body>
+
+{% if page == "login" %}
+<form method="post">
+    <h2>Login</h2>
+    <input name="email" required placeholder="Email">
+    <input name="password" type="password" required placeholder="Password">
+    <button>Login</button>
+    <br><br>
+    <a href="/register">Register</a>
+</form>
+{% endif %}
+
+{% if page == "register" %}
+<form method="post">
+    <h2>Register</h2>
+    <input name="name" required placeholder="Name">
+    <input name="email" required placeholder="Email">
+    <input name="password" required placeholder="Password">
+    <button>Register</button>
+</form>
+{% endif %}
+
+{% if page == "dashboard" %}
+<h2>Dashboard</h2>
+<p>Balance: ₹{{balance}}</p>
+<a href="/beneficiary">Beneficiaries</a> |
+<a href="/transfer">Transfer</a> |
+<a href="/history">History</a> |
+<a href="/logout">Logout</a>
+{% endif %}
+
+{% if page == "beneficiary" %}
+<form method="post">
+    <h2>Add Beneficiary</h2>
+    <input name="email" required placeholder="Beneficiary Email">
+    <button>Add</button>
+</form>
+<h3>Saved Beneficiaries</h3>
+{% for b in data %}
+<p>{{b[0]}}</p>
+{% endfor %}
+<a href="/dashboard">Back</a>
+{% endif %}
+
+{% if page == "transfer" %}
+<form method="post">
+    <h2>Fund Transfer</h2>
+    <input name="receiver" required placeholder="Receiver Email">
+    <input name="amount" required placeholder="Amount">
+    <button>Send</button>
+</form>
+<a href="/dashboard">Back</a>
+{% endif %}
+
+{% if page == "history" %}
+<h2>Transaction History</h2>
+{% for t in data %}
+<p>{{t[1]}} → {{t[2]}} : ₹{{t[3]}}</p>
+{% endfor %}
+<a href="/dashboard">Back</a>
+{% endif %}
+
+</body>
+</html>
